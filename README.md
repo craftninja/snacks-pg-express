@@ -23,8 +23,8 @@
   })
   ```
 
-  Make sure the test fails, then change false to true and COMMIT. yay.
-
+1. Open `package.json` and add a new script called "test" with a value of "jasmine-node spec/" (follow pattern for "start" script)
+1. Run the test `$ npm test`. Make sure the test fails, then change false to true and COMMIT. yay.
 1. `$ git init`
 1. `$ echo node_modules >> .gitignore`
 1. `$ git add .`
