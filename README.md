@@ -1,5 +1,19 @@
 # README
 
+### TODO (snack crud)
+
+1. User can get a list of snacks
+1. User can add a snack
+1. User can edit a snack
+1. User can delete a snack
+
+### Get this puppy up and running
+
+1. Fork, clone, npm install
+1. `$ npm start`
+1. go to (http://localhost:3000/)[http://localhost:3000/] and be greeted
+1. `$ curl http://localhost:3000/` and be greeted
+
 ### How was this thing made?
 
 #### Basic Express App setup
