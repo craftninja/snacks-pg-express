@@ -19,6 +19,8 @@
 1. See a list of snacks
   * go to (http://localhost:3000/snacks)[http://localhost:3000/snacks]
   * `$ curl http://localhost:3000/snacks`
+1. Add a snack
+  * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://localhost:3000/snacks`
 
 ### How was this thing made?
 
@@ -190,3 +192,30 @@
   ```
 
 1. Commit all changes
+
+#### User can add a snack
+
+1. try curling a new snack
+  * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://localhost:3000/snacks`
+1. Add route for adding snacks
+
+  ```js
+  router.post('/', (req, res, next) => {
+    var snack = {
+      name: req.body.name,
+      healthy: req.body.healthy === 'true',
+      quantity: Number(req.body.quantity),
+      ounces: Number(req.body.ounces),
+      created_at: new Date(),
+      updated_at: new Date(),
+    }
+    knex('snacks').insert(snack).returning('*').then( (snacks) => {
+      res.json(snacks[0]);
+    })
+  });
+  ```
+
+1. try curling a new snack
+  * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://localhost:3000/snacks`
+1. Check out the list of snacks in the browser or via curl
+1. Commit!
