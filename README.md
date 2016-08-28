@@ -2,7 +2,7 @@
 
 ### TODO (snack crud)
 
-1. User can get a list of snacks
+1. ~~User can get a list of snacks~~
 1. User can add a snack
 1. User can edit a snack
 1. User can delete a snack
@@ -11,8 +11,14 @@
 
 1. Fork, clone, npm install
 1. `$ npm start`
-1. go to (http://localhost:3000/)[http://localhost:3000/] and be greeted
-1. `$ curl http://localhost:3000/` and be greeted
+1. `$ createdb snacks_db`
+1. `$ knex migrate:latest`
+1. Welcome!
+  * go to (http://localhost:3000/)[http://localhost:3000/] and be greeted
+  * `$ curl http://localhost:3000/` and be greeted
+1. See a list of snacks
+  * go to (http://localhost:3000/snacks)[http://localhost:3000/snacks]
+  * `$ curl http://localhost:3000/snacks`
 
 ### How was this thing made?
 
@@ -112,3 +118,75 @@
   * delete public directory
   * delete views directory
 1. Commit new changes
+
+#### Users can see a list of snacks
+
+1. Change `users` to `snacks` in app.js (two lines of code, four places)
+1. `$ mv routes/users.js routes/snacks.js` and change the content to:
+
+  ```js
+  var express = require('express');
+  var router = express.Router();
+  var knex = require('../db/knex')
+
+  router.get('/', function(req, res, next) {
+    knex('snacks').then((snacks) => {
+      res.json(snacks);
+    })
+  });
+
+  module.exports = router;
+  ```
+
+1. create a file `db/knex.js` with the following content:
+
+  ```js
+  var environment = process.env.NODE_ENV || 'development';
+  var config = require('../knexfile.js')[environment];
+  module.exports = require('knex')(config);
+  ```
+
+1. `$ knex init` and change the `knexfile.js` to have the following content:
+
+  ```js
+  module.exports = {
+    development: {
+      client: 'pg',
+      connection: 'postgres://localhost/snacks_development'
+    }
+  };
+  ```
+1. `$ createdb snacks_development`
+1. `$ knex migrate:make CreateSnacks` and change migration to the following content:
+
+  ```js
+  exports.up = function(knex, Promise) {
+    return knex.schema.createTable('snacks', (t) => {
+      t.increments();
+      t.string('name');
+      t.boolean('healthy');
+      t.integer('quantity');
+      t.float('ounces');
+      t.timestamps();
+    })
+  };
+
+  exports.down = function(knex, Promise) {
+    return knex.schema.dropTable('snacks');
+  };
+  ```
+
+1. `$ knex migrate:latest`
+1. Check out your snacks
+  * go to (http://localhost:3000/snacks)[http://localhost:3000/snacks]
+  * `$ curl http://localhost:3000/snacks`
+1. drop into the psql database and add a snack, and then check out your snacks again
+
+  ```
+  $ psql
+  =# \c snacks_development
+  =# INSERT INTO snacks(name, healthy, quantity, ounces)
+  -# values('beef jerky', true, 15000, 3.2);
+  ```
+
+1. Commit all changes
