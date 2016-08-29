@@ -26,6 +26,9 @@ function getDB(config) {
 
   var db_config = Object.assign({}, DB_DEFAULTS, config);
   console.log("Initializing DB connection: ", JSON.stringify(db_config));
+  if (db_config.connection === undefined) {
+    // TODO: blow up because we need connection information.
+  }
   return knex(db_config);
 }
 
