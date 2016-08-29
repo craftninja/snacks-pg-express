@@ -11,8 +11,9 @@
 
 1. Fork, clone, npm install
 1. `$ npm start`
-1. `$ createdb snacks_db`
+1. `$ createdb snacks_development`
 1. `$ knex migrate:latest`
+  * if you dont have knex run `$ npm install -g knex`
 1. Welcome!
   * go to (http://localhost:3000/)[http://localhost:3000/] and be greeted
   * `$ curl http://localhost:3000/` and be greeted
@@ -252,3 +253,31 @@
 
 1. try curling to delete your snack, and then check your list of snacks.
 1. Commit!
+
+#### User can edit snacks
+
+1. try curling to edit your snack
+  * check your local list of snacks to find a snack to edit (you need the id)
+  * `$ curl -X PUT -d 'name=figs&healthy=true&quantity=5&ounces=3.5' http://yourapp.herokuapp.com/snacks/:id`
+1. Add route for editing snacks like so:
+
+  ```js
+  router.put('/:id', (req, res, next) => {
+    var snackUpdate = {
+      name: req.body.name,
+      healthy: req.body.healthy ? req.body.healthy === 'true' : undefined,
+      quantity: Number(req.body.quantity) || undefined,
+      ounces: Number(req.body.ounces) || undefined,
+      updated_at: new Date(),
+    }
+    knex('snacks').where('id', req.params.id).update(snackUpdate)
+    .returning('*').then( (snacks) => {
+      res.json(snacks[0]);
+    })
+  });
+  ```
+1. try curling to edit your snack
+  * check your local list of snacks to find a snack to edit (you need the id)
+  * `$ curl -X PUT -d 'name=figs&healthy=true&quantity=5&ounces=3.5' http://yourapp.herokuapp.com/snacks/:id`
+  * `$ curl -X PUT -d 'ounces=7.5' http://yourapp.herokuapp.com/snacks/:id`
+      * you can change one parameter by leaving off the rest of the params
