@@ -64,16 +64,16 @@
 
   var baseUrl = 'http://localhost:3000/'
 
-  describe('Snacks Root Path', function() {
-    it('returns status code 200', function(done) {
-      request.get(baseUrl, function(error, response, body) {
+  describe('Snacks Root Path', () => {
+    it('returns status code 200', (done) => {
+      request.get(baseUrl, (error, response, body) => {
         expect(response.statusCode).toBe(200);
         done();
       });
     });
 
-    it('returns a greeting', function(done) {
-      request.get(baseUrl, function(error, response, body) {
+    it('returns a greeting', (done) => {
+      request.get(baseUrl, (error, response, body) => {
         expect(body).toBe('Welcome to the Snack Tracker!');
         done();
       });
@@ -131,7 +131,7 @@
   var router = express.Router();
   var knex = require('../db/knex')
 
-  router.get('/', function(req, res, next) {
+  router.get('/', (req, res, next) => {
     knex('snacks').then((snacks) => {
       res.json(snacks);
     })
@@ -162,7 +162,7 @@
 1. `$ knex migrate:make CreateSnacks` and change migration to the following content:
 
   ```js
-  exports.up = function(knex, Promise) {
+  exports.up = (knex, Promise) => {
     return knex.schema.createTable('snacks', (t) => {
       t.increments();
       t.string('name');
@@ -173,7 +173,7 @@
     })
   };
 
-  exports.down = function(knex, Promise) {
+  exports.down = (knex, Promise) => {
     return knex.schema.dropTable('snacks');
   };
   ```
