@@ -3,7 +3,7 @@
 ### TODO (snack crud)
 
 1. ~~User can get a list of snacks~~
-1. User can add a snack
+1. ~~User can add a snack~~
 1. User can edit a snack
 1. User can delete a snack
 
@@ -219,3 +219,17 @@
   * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://localhost:3000/snacks`
 1. Check out the list of snacks in the browser or via curl
 1. Commit!
+
+#### Deployment to Heroku
+
+1. Create an app on Heroku and add the Heroku postgres add-on
+1. Add the remote to your local repository
+1. Add a development config to the knexfile
+1. Change the start script from nodemon to node
+1. Commit and push the app
+1. Run migrations on Heroku
+  * `$ heroku run knex migrate:latest`
+1. Checkout the list of snacks on your deployed heroku app at '/snacks'
+1. curl a new snack at your deployed heru app '/snacks' like so:
+  * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://yourapp.herokuapp.com/snacks`
+1. Checkout the added snack to your list of snacks on your deployed heroku app at '/snacks'
