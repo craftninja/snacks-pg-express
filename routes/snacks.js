@@ -22,4 +22,11 @@ router.post('/', (req, res, next) => {
   })
 });
 
+router.delete('/:id', (req, res, next) => {
+  var snackToDelete = knex('snacks').where('id', req.params.id);
+  snackToDelete.del().then( (deleted) => {
+    res.json({deletedSnackID: req.params.id});
+  });
+});
+
 module.exports = router;

@@ -233,3 +233,22 @@
 1. curl a new snack at your deployed heru app '/snacks' like so:
   * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://yourapp.herokuapp.com/snacks`
 1. Checkout the added snack to your list of snacks on your deployed heroku app at '/snacks'
+
+#### User can delete snacks
+
+1. try curling to delete a snack
+  * check your local list of snacks to find a snack to delete (you need the id)
+  * `$ curl -X DELETE http://localhost:3000/snacks/4`
+1. Add route for deleting snacks like so:
+
+  ```js
+  router.delete('/:id', (req, res, next) => {
+    var snackToDelete = knex('snacks').where('id', req.params.id);
+    snackToDelete.del().then( (deleted) => {
+      res.json({deletedSnackID: req.params.id});
+    });
+  });
+  ```
+
+1. try curling to delete your snack, and then check your list of snacks.
+1. Commit!
