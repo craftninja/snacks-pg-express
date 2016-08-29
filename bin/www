@@ -5,20 +5,25 @@
  */
 
 var app = require('../app');
+var db = require('../db/knex');
 var debug = require('debug')('snacks-pg:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
+ * Setup the database connection
+ */
+var db_connection = db.getDB();
+app.set('db', db_connection)
+
+/**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**
@@ -28,6 +33,10 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.on('close', function() {
+  console.log('Closing DB Connection');
+  db_connection.destroy();
+});
 
 /**
  * Normalize a port into a number, string, or false.
