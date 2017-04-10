@@ -15,10 +15,10 @@
 1. `$ knex migrate:latest`
   * if you dont have knex run `$ npm install -g knex`
 1. Welcome!
-  * go to (http://localhost:3000/)[http://localhost:3000/] and be greeted
+  * go to [http://localhost:3000/](http://localhost:3000/) and be greeted
   * `$ curl http://localhost:3000/` and be greeted
 1. See a list of snacks
-  * go to (http://localhost:3000/snacks)[http://localhost:3000/snacks]
+  * go to [http://localhost:3000/snacks](http://localhost:3000/snacks)
   * `$ curl http://localhost:3000/snacks`
 1. Add a snack
   * `$ curl -X POST -d 'name=chocolate&healthy=true&quantity=5&ounces=3.5' http://localhost:3000/snacks`
@@ -31,7 +31,7 @@
 1. `$ cd snacks-pg`
 1. `$ touch README.md`, open in your favorite editor and start taking AMAZING NOTES.
 1. `$ npm install`
-1. `$ npm start` to start the server and check it out (http://localhost:3000/)[http://localhost:3000/]
+1. `$ npm start` to start the server and check it out [http://localhost:3000/](http://localhost:3000/)
 1. install jasmine-node `$ npm install --save-dev jasmine-node`
 1. Ensure you have jasmine-node globally installed `$ jasmine-node`
   * if not installed, `$ npm install -g jasmine-node`
@@ -181,7 +181,7 @@
 
 1. `$ knex migrate:latest`
 1. Check out your snacks
-  * go to (http://localhost:3000/snacks)[http://localhost:3000/snacks]
+  * go to [http://localhost:3000/snacks](http://localhost:3000/snacks)
   * `$ curl http://localhost:3000/snacks`
 1. drop into the psql database and add a snack, and then check out your snacks again
 
