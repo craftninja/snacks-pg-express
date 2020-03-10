@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test" : "jasmine-node spec/"
+    "test": "jasmine-node spec/"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
+    "debug": "^2.2.0",
     "express": "~4.13.4",
     "knex": "^0.11.10",
     "morgan": "~1.7.0",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "sqlite3": "^3.1.4"
   }
 }
